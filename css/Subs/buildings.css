@@ -1,0 +1,27 @@
+div.buildingDiv{
+	float: left;
+	width: 600px;
+	height: 400px;
+	overflow: auto;
+}
+
+div.building{
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+    margin: 5px;
+    background-size: 75px 75px;
+}
+
+div.building.warehouse{
+    background-image: url("../Images/Buildings/warehouse.png");
+}
+div.building.house{
+    background-image: url("../Images/Buildings/house.png");
+}
+div.building.woodcutter{
+    background-image: url("../Images/Buildings/woodcutter.png");
+}
+div.building.fishermansHouse{
+    background-image: url("../Images/Buildings/Fishermans_hut.png");
+}

@@ -1,0 +1,19 @@
+div.stats{
+	width: 99%;
+	float: none;
+	padding: 0px;
+	overflow: hidden;
+	background-color:rgba(0,0,0,0.2);
+	margin: 0px;
+	color: #BDA373;
+	padding-left: 1%;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+div.stats input{
+	background-color:rgba(0,0,0,0.2);
+	color: #BDA373;
+	width: 50px;
+	padding-left: 5px;
+}

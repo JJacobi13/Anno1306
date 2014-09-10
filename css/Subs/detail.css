@@ -1,0 +1,31 @@
+div#detail{
+	float: right;
+	border: 1px solid black;
+	width: 400px;
+	height: 400px;
+	border-radius: 10px;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	background-color:rgba(0,0,0,0.2);
+	margin: 10px;
+}
+
+div#detail h1{
+	width: 100%;
+	background-color:rgba(0,0,0,0.3);
+	color: white;
+	margin: 0px;
+	padding-top: 3px;
+	padding-left: 10px;
+}
+div#detail div{
+	padding-left: 10px;
+}
+
+input.showObjVar{
+	background: none;
+	border: 0px;
+	color: black;
+}
+

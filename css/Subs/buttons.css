@@ -1,0 +1,17 @@
+button{
+	height: 40px;
+	margin: 5px;
+	background-image: url("../Images/button.png");
+	background-size: cover;
+	background-position: center center;
+	border: 2px solid black;
+	color: #BDA373;
+	font-weight: bold;
+	border-radius: 10px;
+}
+button:focus{
+	outline: 0;
+}
+button:hover{
+	border: 2px solid white;
+}
