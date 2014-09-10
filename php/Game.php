@@ -26,9 +26,9 @@ class Game{
 	
 	function gameLoop(){
 		echo "Starting game loop...<br />";
-		echo "Money before: " . $this->player->money . "<br />";
+		echo "Money before: " . $this->player->getMoney() . "<br />";
 		$this->player->gameLoop();
-		echo "Money After: " . $this->player->money . "<br />";
+		echo "Money After: " . $this->player->getMoney() . "<br />";
 	}
 }
 ?>

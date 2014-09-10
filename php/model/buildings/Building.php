@@ -1,79 +1,76 @@
 <?php
 include "Warehouse.php";
-include "Woodcutter.php";
 
 class Building{
+    private $properties;
 
     function __construct($name){
-        global$dbConnection;
-        $info = $dbConnection->getBuildingInfo($name);
-        $this->name = $info["name"];
-        $this->appClass = $info["appClass"];
-        $this->woodCost = $info["woodCost"];
-        $this->toolCost = $info["toolCost"];
-        $this->buildingCost = $info["buildingCost"];
-        $this->upkeep = $info["upkeep"];
-        $this->product = $info["product"];
-        $this->productQuantity = $info["productQuantity"];
-        $this->productCondition = $info["productCondition"];
-        $this->productConditionQuantity = $info["productConditionQuantity"];
-        $this->productConditionRequired = $info["productConditionRequired"];
-        $this->object = $info["object"];
-        $this->inhabitants = $info["inhabitants"];
+        global $dbConnection;
+        $this->properties = $dbConnection->getBuildingInfo($name);
     }
 	
 	public function validResources($money, $warehouse){
-		if ($money >= $this->buildingCost &&
-            $warehouse->inventory["wood"] >= $this->woodCost &&
-            $warehouse->inventory["tools"] >= $this->toolCost){
+		if ($money >= $this->getProperty("buildingCost") &&
+            $warehouse->getInventoryItem("wood") >= $this->getProperty("woodCost") &&
+            $warehouse->getInventoryItem("tools") >= $this->getProperty("toolCost")){
 			return true;
 		}
 		return false;
 	}
 	
-	function build(&$money, $warehouse){
-        if($this->validResources($money, $warehouse)){
-            $money -= $this->buildingCost;
-            $warehouse->inventory["wood"] -= $this->woodCost;
-            $warehouse->inventory["tools"] -= $this->toolCost;
-            echo "Constructed a ".$this->name."!<br />";
-            if ($this->object != null){
-                return(new $this->object($this->name));
+	function build($player){
+        if($this->validResources($player->getMoney(), $player->getWarehouse())){
+            $player->pay($this->getProperty("buildingCost"));
+            $player->getWarehouse()->removeResource("wood", $this->getProperty("woodCost"));
+            $player->getWarehouse()->removeResource("tools", $this->getProperty("toolCost"));
+            echo "Constructed a ".$this->getProperty("name")."!<br />";
+            if ($this->getProperty("object") != null){
+                $obj = $this->getProperty("object");
+                return new $obj($this->getProperty("name"));
             }
             return $this;
         }else{
-            throw new Exception("Not enough resources for building a ".$this->name."...");
+            throw new Exception("Not enough resources for building a ".$this->getProperty("name")."...");
         }
 	}
 	
 	function production($player){
         $warehouse = $player->getWarehouse();
-        if($this->productCondition == null || $warehouse->inventory[$this->productCondition] >= $this->productConditionQuantity){
-            if($this->productCondition != null){
-                $warehouse->inventory[$this->productCondition] -= $this->productConditionQuantity;
+        try{
+            if($this->getProperty("productCondition") == null || $warehouse->hasEnoughResources($this->getProperty("productCondition"), $this->getProperty("productConditionQuantity"))){
+                if($this->getProperty("productCondition") != null){
+                    $warehouse->removeResource($this->getProperty("productCondition"), $this->getProperty("productConditionQuantity"));
+                }
+                if($this->getProperty("product") != null){
+                    $warehouse->addResource($this->getProperty("product"), $this->getProperty("productQuantity"));
+                }
             }
-            if($this->product != null){
-                $warehouse->inventory[$this->product] += $this->productQuantity;
-            }
-        }else{
-            if($this->productConditionRequired == true){
+        }catch (Exception $e){
+            if($this->getProperty("productConditionRequired") == true){
                 $player->destroyBuilding($this);
             }
         }
-
     }
 	
 	function gameLoop($player){
-		$player->money -= $this->upkeep;
+		$player->pay($this->getProperty("upkeep"));
 		$this->production($player);
 	}
 	
 	public function __toString(){
-		return $this->name;
+		return (String) $this->getProperty("name");
 	}
 
     public function getAppearanceClass(){
-        return "building " . $this->appClass;
+        return "building " . $this->getProperty("appClass");
+    }
+
+    public function setProperty($key, $value){
+        $this->properties[$key] = $value;
+    }
+
+    public function getProperty($key){
+        return $this->properties[$key];
     }
 }
 ?>

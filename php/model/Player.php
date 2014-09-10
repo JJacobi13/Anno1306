@@ -3,7 +3,7 @@ include "buildings/Building.php";
 
 class Player{
 
-	public $money = 500;
+	private $money = 500;
 	private $buildings = [];
 	
 	function __construct() {
@@ -38,7 +38,7 @@ class Player{
         echo "Trying to build " . $buildingName . "...";
         try{
             $building = new Building($buildingName);
-            array_push($this->buildings, $building->build($this->money, $this->getWarehouse()));
+            array_push($this->buildings, $building->build($this));
         }catch (Exception $e){
             echo $e->getMessage();
         }
@@ -57,10 +57,17 @@ class Player{
 			exit;
 			//echo("<div style=\"position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background-color: gray; z-index: 9; opacity:0.5; \">You lost...</div>");
 		}
-		var_dump($this->money < 0);
 		foreach ($this->buildings as $building) {
 			$building->gameLoop($this);
 		}
 	}
+
+    function getMoney(){
+        return $this->money;
+    }
+
+    function pay($money){
+        $this->money -= $money;
+    }
 }
 ?>

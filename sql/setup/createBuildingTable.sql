@@ -35,6 +35,16 @@ INSERT INTO buildings
   ("Warehouse", "warehouse", 5, 5, 500, 20, "Warehouse", false);
 
 INSERT INTO buildings
-  (name, appClass, woodCost, upkeep, productCondition, productConditionQuantity, productConditionRequired)
-  VALUES
+(name, appClass, woodCost, upkeep, productCondition, productConditionQuantity, productConditionRequired)
+VALUES
   ("House", "house", 2, -10, "food", 1, true );
+
+INSERT INTO buildings
+(name, appClass, woodCost, toolCost, buildingCost, upkeep, product, productQuantity)
+VALUES
+  ("Hemp plantation", "hempPlantation", 2, 2, 100, 5, "wool", 5 );
+
+INSERT INTO buildings
+(name, appClass, woodCost, toolCost, buildingCost, upkeep, product, productQuantity, productCondition, productConditionQuantity)
+VALUES
+  ("Weaver's hat", "weaversHat", 2, 2, 100, 5, "cloth", 5, "wool", 3);

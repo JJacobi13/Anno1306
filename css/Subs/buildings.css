@@ -23,5 +23,11 @@ div.building.woodcutter{
     background-image: url("../Images/Buildings/woodcutter.png");
 }
 div.building.fishermansHouse{
-    background-image: url("../Images/Buildings/Fishermans_hut.png");
+     background-image: url("../Images/Buildings/Fishermans_hut.png");
+}
+div.building.hempPlantation{
+    background-image: url("../Images/Buildings/Hemp_plantation.png");
+}
+div.building.weaversHat{
+    background-image: url("../Images/Buildings/Weavers_hut.png");
 }
