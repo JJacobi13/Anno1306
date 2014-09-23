@@ -2,13 +2,16 @@
 class Warehouse extends Building{
     private $inventory = ["wood" => 10, "tools" => 10, "food" => 10];
 
-	function showInventory(){
-		$invStr = "<h1>Warehouse:</h1>";
+    function showDetails(){
+        $detailDiv = parent::showDetails();
+        return $this->showInventory($detailDiv);
+    }
+
+	function showInventory($detailDiv){
         foreach($this->inventory as $item => $quantity){
-            //TODO use HtmlGenerator
-            $invStr .= "<div>".$item.": <input class=\"showObjVar\" disabled value=".$quantity." /></div>";
+            $detailDiv->addInput($item, $quantity);
         }
-		return $invStr;
+		return $detailDiv;
 	}
 
     function hasEnoughResources($key, $quantity){

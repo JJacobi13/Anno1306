@@ -5,29 +5,31 @@ div.buildingDiv{
 	overflow: auto;
 }
 
-div.building{
+button.building{
     width: 75px;
     height: 75px;
     display: inline-block;
     margin: 5px;
     background-size: 75px 75px;
+    background-color: transparent;
+    border: 0px solid black;
 }
 
-div.building.warehouse{
+button.building.warehouse{
     background-image: url("../Images/Buildings/warehouse.png");
 }
-div.building.house{
+button.building.house{
     background-image: url("../Images/Buildings/house.png");
 }
-div.building.woodcutter{
+button.building.woodcutter{
     background-image: url("../Images/Buildings/woodcutter.png");
 }
-div.building.fishermansHouse{
+button.building.fishermansHouse{
      background-image: url("../Images/Buildings/Fishermans_hut.png");
 }
-div.building.hempPlantation{
+button.building.hempPlantation{
     background-image: url("../Images/Buildings/Hemp_plantation.png");
 }
-div.building.weaversHat{
+button.building.weaversHat{
     background-image: url("../Images/Buildings/Weavers_hut.png");
 }

@@ -14,6 +14,7 @@ session_start();
 	<body>
 		<div class="wrapper">
             <?php
+            $_SESSION["details"] = "warehouse";
             $_SESSION['game'] = new Game();
             ?>
 

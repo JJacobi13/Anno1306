@@ -5,25 +5,35 @@ class Player{
 
 	private $money = 500;
 	private $buildings = [];
+
+    /**
+     * @return a list of built buildings
+     */
+    public function getBuildings()
+    {
+        return $this->buildings;
+    }
 	
 	function __construct() {
 		$moneyDiv = new Div("stats");
 		$moneyDiv->addInput("Money: ", $this->money, "money", true);
 		echo $moneyDiv;
+        $this->createStartingBuildings();
 		$buildingDiv = new Div("buildingDiv");
 		$buildingDiv->addHeader("Buildings");
-		$buildingDiv->createList($this->buildings, "buildings");
+        $buildingsContent = new Div(null, "buildings");
+        $buildingsContent->addText($this->getBuildingsHTML());
+        $buildingDiv->addText($buildingsContent);
 		echo $buildingDiv;
 	}
 	
-	function getBuildingNames(){
-        $text = "";
+	function getBuildingsHTML(){
+        $contentDiv = new Div("content");
         foreach($this->buildings as $building){
-            $buildingDiv = new Div($building->getAppearanceClass());
-            $text .= $buildingDiv->__toString();
+
+            $contentDiv->createButton("showDetails","",$building->getAppearanceClass());
         }
-		return $text;
-            //htmlListItems($this->buildings);
+		return $contentDiv;
 	}
 	
 	function getWarehouse(){

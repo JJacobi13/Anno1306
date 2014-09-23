@@ -8,6 +8,38 @@ class Building{
         global $dbConnection;
         $this->properties = $dbConnection->getBuildingInfo($name);
     }
+
+    public function showDetails(){
+        $detailDiv = new Div("content");
+        $detailDiv->addHeader($this->getProperty("name"));
+        /*Draw the default statistics*/
+        $statsDiv = new Div("stats");
+        if($this->getProperty("upkeep") > 0){
+            $statsDiv->addInput("upkeep: ", $this->getProperty("upkeep"));
+        }elseif($this->getProperty("upkeep") == 0){
+            $statsDiv->addText("<p>No upkeep</p>");
+        }else{
+            $statsDiv->addInput("tax: ", $this->getProperty("upkeep") * -1);
+        }
+
+        $detailDiv->addText($statsDiv);
+
+        /*Draw the production*/
+        if($this->getProperty("productCondition") != null){
+            if($this->getProperty("productConditionRequired")){
+                echo $this->getProperty("productConditionQuantity");
+                $detailDiv->addInput("Requires: ", sprintf("%s x %d",$this->getProperty("productCondition"), $this->getProperty("productConditionQuantity")));
+            }else{
+                $detailDiv->addInput("Turns: ", sprintf("%s x %d",$this->getProperty("productCondition"), $this->getProperty("productConditionQuantity")));
+                $detailDiv->addText("<p>Into</p>");
+            }
+        }
+        if($this->getProperty("product") != null){
+            $detailDiv->addInput("Production: ", sprintf("%s x %d",$this->getProperty("product"), $this->getProperty("productQuantity")));
+        }
+
+        return $detailDiv;
+    }
 	
 	public function validResources($money, $warehouse){
 		if ($money >= $this->getProperty("buildingCost") &&

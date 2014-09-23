@@ -20,7 +20,6 @@ class Game{
         $this->player = new Player();
     }
 	function start(){
-		$this->player->createStartingBuildings();
 		$this->gameLoop();
 	}
 	

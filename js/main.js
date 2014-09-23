@@ -1,7 +1,7 @@
 window.onload = function (){
 	updateBuildings();
 	updateMoney();
-	updateWarehouseDetails();
+    showDetails();
 }
 
 
@@ -16,14 +16,14 @@ function actionOutputToLogger(phpScript){
 	xmlhttp.send();
 }
 
-function updateWarehouseDetails(){
+function showDetails(clickedItem){
     var xmlhttp=new XMLHttpRequest();
 	xmlhttp.onreadystatechange=function(){
 		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 			document.getElementById("detail").innerHTML=xmlhttp.responseText;
 		}
 	}
-	xmlhttp.open("GET","php/actions/showDetails.php",true);
+	xmlhttp.open("GET","php/actions/showDetails.php?building="+clickedItem,true);
 	xmlhttp.send();
 }
 
@@ -31,14 +31,14 @@ function createBuilding(buildingName){
     actionOutputToLogger("php/actions/buildBuilding.php?building="+buildingName);
     updateBuildings();
     updateMoney();
-    updateWarehouseDetails();
+    showDetails();
 }
 
 function nextTurn(){
 	actionOutputToLogger("php/actions/executeTurn.php");	
 	updateBuildings();
 	updateMoney();
-	updateWarehouseDetails();
+    showDetails();
 }
 
 function updateMoney() {

@@ -1,4 +1,4 @@
-button{
+div.buttons button{
 	height: 40px;
 	margin: 5px;
 	background-image: url("../Images/button.png");
@@ -12,6 +12,6 @@ button{
 button:focus{
 	outline: 0;
 }
-button:hover{
+div.buttons button:hover{
 	border: 2px solid white;
 }

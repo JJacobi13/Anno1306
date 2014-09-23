@@ -3,10 +3,17 @@
 class Div{
 	private $appearanceClass;
 	private $divContent = [];
+    private $action = null;
+    private $id;
 	
-	public function __construct($appClass = null){
+	public function __construct($appClass = null, $id = null){
 		$this->appearanceClass = $appClass;
+        $this->id = $id;
 	}
+
+    public function addAction($trigger, $javascriptFunction){
+        $this->action = $trigger . "=\"" . $javascriptFunction . "(this.className)\"";
+    }
 
     public function createButton($action, $caption, $class = null){
         $this->addText("<button ");
@@ -19,7 +26,7 @@ class Div{
 	public function createList($array, $id = null){
 		$this->addText("<ul ");
 		if($id != null){
-			$this->addText("id=\"buildings\" ");
+			$this->addText("id=\"".$id."\" ");
 		}
 		$this->addText(">");
 		htmlListItems($array);
@@ -53,6 +60,9 @@ class Div{
 		if($this->appearanceClass != null){
 			$string .= "class=\"" . $this->appearanceClass . "\"";
 		}
+        if($this->id != null){
+            $string .= "id=\"" . $this->id . "\"";
+        }
 		$string .= ">";
 		foreach ($this->divContent as $content){
 			$string .= $content;
